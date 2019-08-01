@@ -6,6 +6,11 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
+public class XRHumanBodyPose2DJoint
+{
+
+}
+
 public class ScreenSpaceJointVisualizer : MonoBehaviour
 {
     // 2D joint skeleton
@@ -78,76 +83,15 @@ public class ScreenSpaceJointVisualizer : MonoBehaviour
         m_LineRenderers = new Dictionary<int, GameObject>();
     }
 
-    void UpdateRenderer(NativeArray<XRHumanBodyPose2DJoint> joints, int index)
+    void UpdateRenderer(int joints, int index)
     {
-        GameObject lineRendererGO;
-        if (!m_LineRenderers.TryGetValue(index, out lineRendererGO))
-        {
-            lineRendererGO = Instantiate(m_LineRendererPrefab, transform);
-            m_LineRenderers.Add(index, lineRendererGO);
-        }
-
-        var lineRenderer = lineRendererGO.GetComponent<LineRenderer>();
-
-        // Traverse hierarchy to determine the longest line set that needs to be drawn.
-        var positions = new NativeArray<Vector2>(joints.Length, Allocator.Temp);
-        try
-        {
-            var boneIndex = index;
-            int jointCount = 0;
-            while (boneIndex >= 0)
-            {
-                var joint = joints[boneIndex];
-                if (joint.tracked)
-                {
-                    positions[jointCount++] = joint.position;
-                    if (!s_JointSet.Add(boneIndex))
-                        break;
-                }
-                else
-                    break;
-
-                boneIndex = joint.parentIndex;
-            }
-
-            // Render the joints as lines on the camera's near clip plane.
-            lineRenderer.positionCount = jointCount;
-            lineRenderer.startWidth = 0.001f;
-            lineRenderer.endWidth = 0.001f;
-            for (int i = 0; i < jointCount; ++i)
-            {
-                var position = positions[i];
-                var worldPosition = m_ARCamera.ViewportToWorldPoint(
-                    new Vector3(position.x, position.y, m_ARCamera.nearClipPlane));
-                lineRenderer.SetPosition(i, worldPosition);
-            }
-            lineRendererGO.SetActive(true);
-        }
-        finally
-        {
-            positions.Dispose();
-        }
+       
     }
 
     void Update()
     {
         Debug.Assert(m_HumanBodyManager != null, "Human body manager cannot be null");
-        var joints = m_HumanBodyManager.GetHumanBodyPose2DJoints(Allocator.Temp);
-        if (!joints.IsCreated)
-        {
-            HideJointLines();
-            return;
-        }
-
-        using (joints)
-        {
-            s_JointSet.Clear();
-            for (int i = joints.Length - 1; i >= 0; --i)
-            {
-                if (joints[i].parentIndex != -1)
-                    UpdateRenderer(joints, i);
-            }
-        }
+       
     }
 
     void HideJointLines()

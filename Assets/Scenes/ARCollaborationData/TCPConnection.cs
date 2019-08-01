@@ -50,7 +50,7 @@ public abstract class TCPConnection : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-#if UNITY_IOS
+#if UNITY_IOS1
         if (ARKitSessionSubsystem.supportsCollaboration)
         {
             m_ExitRequested = false;
@@ -65,7 +65,7 @@ public abstract class TCPConnection : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-#if UNITY_IOS
+#if UNITY_IOS1
         // Shutdown running threads
         m_ExitRequested = true;
 
@@ -88,7 +88,7 @@ public abstract class TCPConnection : MonoBehaviour
 
     protected virtual void Update()
     {
-#if UNITY_IOS
+#if UNITY_IOS1
         if (session == null)
             return;
 
@@ -113,7 +113,7 @@ public abstract class TCPConnection : MonoBehaviour
 #endif
     }
 
-#if UNITY_IOS
+#if UNITY_IOS1
     Queue<ARCollaborationData> m_CollaborationDataSendQueue;
 
     Queue<ARCollaborationData> m_CollaborationDataReadQueue;

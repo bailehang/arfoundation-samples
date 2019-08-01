@@ -27,8 +27,8 @@ public class DisplayFaceInfo : MonoBehaviour
     {
         if (m_FaceManager.subsystem != null && faceInfoText != null)
         {
-            faceInfoText.text = $"Supported number of tracked faces: {m_FaceManager.supportedFaceCount}\n" +
-                                $"Max number of faces to track: {m_FaceManager.maximumFaceCount}\n" +
+            faceInfoText.text = $"Supported number of tracked faces: {1111}\n" +
+                                $"Max number of faces to track: {2222}\n" +
                                 $"Number of tracked faces: {m_FaceManager.trackables.count}";
         }
     }

@@ -33,7 +33,7 @@ public class DisplayTrackingState : MonoBehaviour
     {
         if (text != null)
         {
-            text.text = $"Session ID = {m_Session.subsystem.sessionId}\n" +
+            text.text = $"Session ID = {1111}\n" +
                         $"Session state = {ARSession.state.ToString()}\n" +
                         $"Tracking state = {m_Session.subsystem.trackingState}";
         }

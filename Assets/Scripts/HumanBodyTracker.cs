@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
+public class ARHumanBodyManager
+{
+
+}
+
 public class HumanBodyTracker : MonoBehaviour
 {
     [SerializeField]
@@ -37,49 +42,19 @@ public class HumanBodyTracker : MonoBehaviour
     void OnEnable()
     {
         Debug.Assert(m_HumanBodyManager != null, "Human body manager is required.");
-        m_HumanBodyManager.humanBodiesChanged += OnHumanBodiesChanged;
+        //m_HumanBodyManager.humanBodiesChanged += OnHumanBodiesChanged;
     }
 
     void OnDisable()
     {
-        if (m_HumanBodyManager != null)
-            m_HumanBodyManager.humanBodiesChanged -= OnHumanBodiesChanged;
+        //if (m_HumanBodyManager != null)
+          //  m_HumanBodyManager.humanBodiesChanged -= OnHumanBodiesChanged;
     }
 
-    void OnHumanBodiesChanged(ARHumanBodiesChangedEventArgs eventArgs)
+    void OnHumanBodiesChanged(int eventArgs)
     {
         BoneController boneController;
 
-        foreach (var humanBody in eventArgs.added)
-        {
-            if (!m_SkeletonTracker.TryGetValue(humanBody.trackableId, out boneController))
-            {
-                Debug.Log($"Adding a new skeleton [{humanBody.trackableId}].");
-                var newSkeletonGO = Instantiate(m_SkeletonPrefab, humanBody.transform);
-                boneController = newSkeletonGO.GetComponent<BoneController>();
-                m_SkeletonTracker.Add(humanBody.trackableId, boneController);
-            }
-
-            boneController.InitializeSkeletonJoints();
-            boneController.ApplyBodyPose(humanBody);
-        }
-
-        foreach (var humanBody in eventArgs.updated)
-        {
-            if (m_SkeletonTracker.TryGetValue(humanBody.trackableId, out boneController))
-            {
-                boneController.ApplyBodyPose(humanBody);
-            }
-        }
-
-        foreach (var humanBody in eventArgs.removed)
-        {
-            Debug.Log($"Removing a skeleton [{humanBody.trackableId}].");
-            if (m_SkeletonTracker.TryGetValue(humanBody.trackableId, out boneController))
-            {
-                Destroy(boneController.gameObject);
-                m_SkeletonTracker.Remove(humanBody.trackableId);
-            }
-        }
+       
     }
 }

@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.XR.ARSubsystems;
 using System.Collections.Generic;
 using System;
+public class ARHumanBody
+{
+
+}
 
 public class BoneController : MonoBehaviour
 {
@@ -146,20 +150,7 @@ public class BoneController : MonoBehaviour
 
     public void ApplyBodyPose(ARHumanBody body)
     {
-        var joints = body.joints;
-        if (!joints.IsCreated)
-            return;
-
-        for (int i = 0; i < k_NumSkeletonJoints; ++i)
-        {
-            XRHumanBodyJoint joint = joints[i];
-            var bone = m_BoneMapping[i];
-            if (bone != null)
-            {
-                bone.transform.localPosition = joint.localPose.position;
-                bone.transform.localRotation = joint.localPose.rotation;
-            }
-        }
+       
     }
 
     void ProcessJoint(Transform joint)

@@ -85,35 +85,7 @@ public class TestDepthImage : MonoBehaviour
 
     void Update()
     {
-        var subsystem = m_HumanBodyManager.subsystem;
-        if (subsystem == null)
-        {
-            if (m_ImageInfo != null)
-            {
-                m_ImageInfo.text = "Human Segmentation not supported.";
-            }
-            return;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        Texture2D humanStencil = m_HumanBodyManager.humanStencilTexture;
-        Texture2D humanDepth = m_HumanBodyManager.humanDepthTexture;
-        LogTextureInfo(sb, "stencil", humanStencil);
-        LogTextureInfo(sb, "depth", humanDepth);
-
-        if (m_ImageInfo != null)
-        {
-            m_ImageInfo.text = sb.ToString();
-        }
-        else
-        {
-            Debug.Log(sb.ToString());
-        }
-
-        // To use the stencil, be sure the HumanSegmentationStencilMode property on the ARHumanBodyManager is set to a
-        // non-disabled value.
-        m_RawImage.texture = humanStencil;
-
+        
         // To use the depth, be sure the HumanSegmentationDepthMode property on the ARHumanBodyManager is set to a
         /// non-disabled value.
         // m_RawImage.texture = eventArgs.humanDepth;

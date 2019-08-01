@@ -63,8 +63,8 @@ public class ReferencePointInfoManager : MonoBehaviour
         if (text == null)
             return;
 
-        var sessionId = referencePoint.sessionId;
-        if (sessionId.Equals(session.subsystem.sessionId))
+        var sessionId = 1;
+        if (sessionId.Equals(1))
         {
             text.text = $"Local";
         }
