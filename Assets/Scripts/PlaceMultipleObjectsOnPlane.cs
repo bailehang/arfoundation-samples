@@ -50,7 +50,7 @@ public class PlaceMultipleObjectsOnPlane : MonoBehaviour
                 if (m_RaycastManager.Raycast(touch.position, s_Hits, TrackableType.PlaneWithinPolygon))
                 {
                     Pose hitPose = s_Hits[0].pose;
-                    //hitPose.position.z += 10;
+                    hitPose.position.z += 1;
                     spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
 
                     if (onPlacedObject != null)
